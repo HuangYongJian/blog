@@ -2,7 +2,7 @@
 * @Author: Issac
 * @Date:   2017-08-11 09:25:40
 * @Last Modified by:   Issac
-* @Last Modified time: 2017-08-11 14:38:34
+* @Last Modified time: 2017-08-12 22:40:53
 */
 
 'use strict';
@@ -16,7 +16,7 @@ var WEBPACK_ENV       = process.env.WEBPACK_ENV || 'dev';
 var getHtmlConfig = function(name){
     return {
            template : './src/view/'+name+'.html',
-           filename : 'view/'+name+'.html',
+           filename : 'view/'+name+'/index.html',
            inject   : true,
            hash     : true,
            chunks   : ['common' , name]
@@ -24,9 +24,16 @@ var getHtmlConfig = function(name){
 };
 //webpack config
 var config  = {
+
+    devServer : {
+       historyApiFallback:true
+    },
     entry     : {
         'common' : './src/page/common/index.js',
         'index'  : './src/page/index/index.js',
+        'about'  : './src/page/about/index.js',
+        'project'  : './src/page/demo/index.js',
+        'summary'  : './src/page/sum/index.js',
     },
     output    : {
         path       : __dirname+'/dist',
@@ -64,7 +71,7 @@ var config  = {
                     loader: 'babel-loader',
                     options: {
                         presets : ['react','es2015'],
-                        plugins : ['react-html-attrs']
+                        plugins : ['react-html-attrs'] 
                   }
           }   
         }
@@ -82,7 +89,10 @@ var config  = {
             allChunks : true
         }),
         //html模板的处理
-        new HtmlWebpackPlugin(getHtmlConfig('index')),  
+        new HtmlWebpackPlugin(getHtmlConfig('index')),
+        new HtmlWebpackPlugin(getHtmlConfig('demo')),
+        new HtmlWebpackPlugin(getHtmlConfig('about')),
+        new HtmlWebpackPlugin(getHtmlConfig('sum'))
     ]
 };
 if('dev'=== WEBPACK_ENV){

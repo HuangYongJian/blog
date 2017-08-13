@@ -1,4 +1,8 @@
 .DS_Store
 /node_modules/
 /dist/
+<<<<<<< HEAD
 npm-debug.log
+=======
+npm-debug.log
+>>>>>>> origin
